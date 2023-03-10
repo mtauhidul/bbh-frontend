@@ -5,6 +5,8 @@ import Navbar from '../../components/navbar/Navbar';
 import BasicInfo from '../../components/regi/BasicInfo';
 import BatchSelect from '../../components/regi/BatchSelect';
 import Members from '../../components/regi/Members';
+import Payment from '../../components/regi/Payment';
+import Verify from '../../components/regi/Verify';
 import { useData } from '../../state/data';
 import styles from './registration.module.css';
 
@@ -41,7 +43,7 @@ const Registration = () => {
         break;
 
       case 3:
-        if (state.members.length < 1) {
+        if (state.totalMembers.length < 1) {
           toast.error('Please enter all the required information correctly');
         } else {
           setPhase(4);
@@ -53,6 +55,14 @@ const Registration = () => {
     }
 
     setError(error);
+  };
+
+  const changePhase = () => {
+    setPhase(phase + 1);
+  };
+
+  const handleBack = () => {
+    setPhase(phase - 1);
   };
 
   return (
@@ -68,6 +78,10 @@ const Registration = () => {
             {phase === 1 && <BatchSelect />}
             {phase === 2 && <BasicInfo />}
             {phase === 3 && <Members />}
+            {phase === 4 && (
+              <Verify changePhase={changePhase} handleBack={handleBack} />
+            )}
+            {phase === 5 && <Payment />}
           </div>
           <div className={styles.nextButtonWrapper}>
             <Button
