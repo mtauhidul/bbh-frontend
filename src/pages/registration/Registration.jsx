@@ -8,6 +8,11 @@ import styles from './registration.module.css';
 
 const Registration = () => {
   const [phase, setPhase] = useState(1);
+
+  const handleNext = () => {
+    setPhase(phase + 1);
+  };
+
   return (
     <div className={styles.container}>
       <Navbar />
@@ -24,7 +29,7 @@ const Registration = () => {
           </div>
           <div className={styles.nextButtonWrapper}>
             <Button
-              onClick={() => setPhase(phase + 1)}
+              onClick={handleNext}
               sx={{
                 minWidth: '12.5rem',
                 fontWeight: '600',
