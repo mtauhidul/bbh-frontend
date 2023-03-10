@@ -1,16 +1,58 @@
 import { Button } from '@mui/material';
 import React, { useState } from 'react';
+import { toast, Toaster } from 'react-hot-toast';
 import Navbar from '../../components/navbar/Navbar';
 import BasicInfo from '../../components/regi/BasicInfo';
 import BatchSelect from '../../components/regi/BatchSelect';
 import Members from '../../components/regi/Members';
+import { useData } from '../../state/data';
 import styles from './registration.module.css';
 
 const Registration = () => {
+  const { state } = useData();
   const [phase, setPhase] = useState(1);
+  const [error, setError] = useState(false);
 
   const handleNext = () => {
-    setPhase(phase + 1);
+    switch (phase) {
+      case 1:
+        if (state.batch === '' || state.phoneNumber === '') {
+          toast.error('Please enter all the required information correctly');
+        } else {
+          setPhase(2);
+        }
+        break;
+
+      case 2:
+        if (
+          state.firstName === '' ||
+          state.lastName === '' ||
+          state.email === '' ||
+          state.lastRoomNumber === '' ||
+          state.department === '' ||
+          state.bloodGroup === '' ||
+          state.district === '' ||
+          state.thana === ''
+        ) {
+          toast.error('Please enter all the required information correctly');
+        } else {
+          setPhase(3);
+        }
+        break;
+
+      case 3:
+        if (state.members.length < 1) {
+          toast.error('Please enter all the required information correctly');
+        } else {
+          setPhase(4);
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    setError(error);
   };
 
   return (
@@ -49,6 +91,7 @@ const Registration = () => {
           </div>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };
