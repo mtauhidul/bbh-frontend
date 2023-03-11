@@ -1,5 +1,8 @@
 import React from 'react';
-import { default as image1, default as image2 } from '../../assets/home_bg.jpg';
+import {
+  default as image1,
+  default as image2,
+} from '../../assets/home_bg2.jpg';
 import Navbar from '../../components/navbar/Navbar';
 import styles from './about.module.css';
 
