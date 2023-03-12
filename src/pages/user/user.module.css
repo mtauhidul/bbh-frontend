@@ -1,0 +1,30 @@
+.userContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: #242728;
+
+}
+
+.userContainer .userForm h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+.userContainer .userForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    width: 500px;
+    background-color: #f5f5f5;
+    padding: 20px 50px;
+    border-radius: 10px;
+}

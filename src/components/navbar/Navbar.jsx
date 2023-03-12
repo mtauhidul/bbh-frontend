@@ -116,6 +116,22 @@ export default function Navbar(props) {
               startIcon={<CampaignIcon />}>
               Reunion registration
             </Button>
+            <Button
+              onClick={() => navigate('/user')}
+              variant='outlined'
+              sx={{
+                color: '#fff',
+                borderColor: '#fff',
+                margin: '0px 12px',
+                fontSize: '16px',
+                '&:hover': {
+                  color: 'black',
+                  borderColor: 'black',
+                  backgroundColor: '#fff',
+                },
+              }}>
+              Get Registration ID
+            </Button>
           </Box>
         </Toolbar>
       </AppBar>

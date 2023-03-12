@@ -8,6 +8,7 @@ import { alpha, styled } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -52,6 +53,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function DashboardHeader() {
+  const navigate = useNavigate();
+
+  const logOut = () => {
+    localStorage.removeItem('user');
+    sessionStorage.clear();
+    navigate('/login');
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -81,6 +90,7 @@ export default function DashboardHeader() {
             />
           </Search>
           <Button
+            onClick={logOut}
             sx={{
               backgroundColor: '#fff',
               color: '#3f51b5',

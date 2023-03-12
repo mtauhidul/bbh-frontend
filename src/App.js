@@ -5,6 +5,8 @@ import Dashboard from './pages/dashboard/Dashboard';
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import Registration from './pages/registration/Registration';
+import User from './pages/user/User';
+import PrivateRoute from './PrivateRoute';
 
 const App = () => {
   return (
@@ -14,8 +16,11 @@ const App = () => {
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/registration' element={<Registration />} />
-        <Route path='/dashboard' element={<Dashboard />} />
-        <Route path='login' element={<Login />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/user' element={<User />} />
+        <Route path='/' element={<PrivateRoute />}>
+          <Route path='dashboard' element={<Dashboard />} />
+        </Route>
       </Routes>
     </Router>
   );

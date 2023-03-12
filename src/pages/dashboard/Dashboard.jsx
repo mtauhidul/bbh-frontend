@@ -8,58 +8,49 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import * as React from 'react';
+import { getAllData } from '../../services/api';
 import DashboardHeader from './DashboardHeader';
 
-function createData(name, batch, department, payment_status, details) {
-  return { name, batch, department, payment_status, details };
+function createData(
+  name,
+  batch,
+  department,
+  payment_status,
+  collection_status,
+  details
+) {
+  return {
+    name,
+    batch,
+    department,
+    payment_status,
+    collection_status,
+    details,
+  };
 }
 
-const rows = [
-  createData(
-    'Aminul Islam',
-    '31',
-    'Computer Science and Engineering',
-    'Paid',
-    'Details'
-  ),
-  createData(
-    'Aminul Islam',
-    '31',
-    'Computer Science and Engineering',
-    'Paid',
-    'Details'
-  ),
-  createData(
-    'Aminul Islam',
-    '31',
-    'Computer Science and Engineering',
-    'Paid',
-    'Details'
-  ),
-  createData(
-    'Aminul Islam',
-    '31',
-    'Computer Science and Engineering',
-    'Unpaid',
-    'Details'
-  ),
-  createData(
-    'Aminul Islam',
-    '31',
-    'Computer Science and Engineering',
-    'Paid',
-    'Details'
-  ),
-  createData(
-    'Aminul Islam',
-    '31',
-    'Computer Science and Engineering',
-    'Unpaid',
-    'Details'
-  ),
-];
-
 export default function Dashboard() {
+  const [allUserData, setAllUserData] = React.useState([]);
+
+  const getAllUserData = async () => {
+    const res = await getAllData();
+    setAllUserData(res);
+  };
+
+  React.useEffect(() => {
+    getAllUserData();
+  }, []);
+
+  const rows = allUserData.map((user) => {
+    return createData(
+      user.firstName + ' ' + user.lastName,
+      user.batch,
+      user.department,
+      user.payment_status,
+      user.collection_status
+    );
+  });
+
   return (
     <div
       style={{
@@ -80,6 +71,7 @@ export default function Dashboard() {
               <TableCell align='center'>Batch</TableCell>
               <TableCell align='center'>Department</TableCell>
               <TableCell align='left'>Payment Status</TableCell>
+              <TableCell align='left'>Collection Status</TableCell>
               <TableCell align='center'>Details</TableCell>
             </TableRow>
           </TableHead>
@@ -116,6 +108,28 @@ export default function Dashboard() {
                     <span style={{ color: 'red' }}>
                       <Button size='small' variant='contained'>
                         Pay now
+                      </Button>
+                    </span>
+                  )}
+                </TableCell>
+
+                <TableCell
+                  align='center'
+                  sx={{
+                    '& span': {
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '5px',
+                    },
+                  }}>
+                  {row.collection_status === 'collected' ? (
+                    <span style={{ color: 'green', fontWeight: 700 }}>
+                      <CheckCircleRoundedIcon /> {row.collection_status}
+                    </span>
+                  ) : (
+                    <span style={{ color: 'red' }}>
+                      <Button size='small' variant='contained'>
+                        Collect now
                       </Button>
                     </span>
                   )}

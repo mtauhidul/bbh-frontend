@@ -1,11 +1,19 @@
 import { Button, TextField } from '@mui/material';
 import React from 'react';
 import { toast, Toaster } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import styles from './login.module.css';
 
 const Login = () => {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
+
+  const navigate = useNavigate();
+
+  const loginNow = () => {
+    localStorage.setItem('user', 'test');
+    navigate('/dashboard');
+  };
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -24,6 +32,7 @@ const Login = () => {
     };
 
     if (user.username !== '' && user.password !== '') {
+      loginNow();
       toast.success('Login successful');
     } else {
       toast.error('Please enter username and password correctly');

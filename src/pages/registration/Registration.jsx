@@ -57,7 +57,7 @@ const Registration = () => {
     setError(error);
   };
 
-  const changePhase = () => {
+  const changePhase = async () => {
     setPhase(phase + 1);
   };
 
