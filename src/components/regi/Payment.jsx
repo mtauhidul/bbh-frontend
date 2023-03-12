@@ -18,10 +18,10 @@ const Payment = () => {
       const collectedId = await getData(state.phoneNumber);
       setId(collectedId);
 
-      console.log(collectedId);
-
       if (collectedId) {
         setSuccess(true);
+        toast.success('Registration successful');
+        sessionStorage.clear();
       } else {
         toast.error('Registration failed! Please try again.');
       }

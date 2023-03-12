@@ -59,3 +59,22 @@ export const getAllData = async () => {
 
   return allData;
 };
+
+// Login with username and password using firestore get data method
+export const SignIn = async (username, password) => {
+  let token = '';
+  const q = query(collection(db, 'admin'), where('username', '==', username));
+
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    const returnedPassword = doc.data().password;
+    if (returnedPassword === password) {
+      token = doc.id;
+    } else {
+      token = '';
+    }
+    return token;
+  });
+
+  return token;
+};

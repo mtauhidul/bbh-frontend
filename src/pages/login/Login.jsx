@@ -1,17 +1,20 @@
-import { Button, TextField } from '@mui/material';
+import { Button, CircularProgress, TextField } from '@mui/material';
 import React from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { SignIn } from '../../services/api';
 import styles from './login.module.css';
 
 const Login = () => {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
 
+  const [loading, setLoading] = React.useState(false);
+
   const navigate = useNavigate();
 
-  const loginNow = () => {
-    localStorage.setItem('user', 'test');
+  const loginNow = (token) => {
+    localStorage.setItem('user', token);
     navigate('/dashboard');
   };
 
@@ -23,19 +26,18 @@ const Login = () => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
 
-    const user = {
-      username,
-      password,
-    };
+    const res = await SignIn(username, password);
 
-    if (user.username !== '' && user.password !== '') {
-      loginNow();
+    if (res !== '') {
+      loginNow(res);
       toast.success('Login successful');
     } else {
       toast.error('Please enter username and password correctly');
+      setLoading(false);
     }
   };
   return (
@@ -75,7 +77,7 @@ const Login = () => {
           }}
           onClick={handleSubmit}
           variant='contained'>
-          Login
+          {loading ? <CircularProgress color='inherit' size={20} /> : 'Login'}
         </Button>
       </form>
       <Toaster />
