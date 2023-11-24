@@ -1,5 +1,5 @@
-import CampaignIcon from '@mui/icons-material/Campaign';
 import MenuIcon from '@mui/icons-material/Menu';
+import SportsCricketIcon from '@mui/icons-material/SportsCricket';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -45,7 +45,12 @@ export default function Navbar(props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
-  // Keep the nav items at the right position
+  const getCurrentUrl = () => {
+    const url = window.location.href;
+    const urlParts = url.split('/');
+    const currentUrl = urlParts[urlParts.length - 1];
+    return currentUrl;
+  };
 
   return (
     <Box
@@ -99,7 +104,7 @@ export default function Navbar(props) {
                 {item}
               </Button>
             ))}
-            <Button
+            {/* <Button
               onClick={() => navigate('/registration')}
               variant='outlined'
               sx={{
@@ -131,6 +136,23 @@ export default function Navbar(props) {
                 },
               }}>
               Get Registration ID
+            </Button> */}
+            <Button
+              onClick={() => navigate('/auction')}
+              variant='outlined'
+              sx={{
+                color: '#fff',
+                borderColor: '#fff',
+                margin: '0px 12px',
+                fontSize: '16px',
+                '&:hover': {
+                  color: 'black',
+                  borderColor: 'black',
+                  backgroundColor: '#fff',
+                },
+              }}
+              startIcon={<SportsCricketIcon />}>
+              Tournament Auction
             </Button>
           </Box>
         </Toolbar>
