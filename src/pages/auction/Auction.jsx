@@ -106,6 +106,8 @@ const Auction = () => {
         জয় বাংলা ক্রিকেট টুর্নামেন্ট - ২০২৩
       </h1>
       <br />
+      <br />
+      <br />
       <AuctionItem item={auctionItem} />
       <div className={styles.auction__bottom_nav}>
         <Button
